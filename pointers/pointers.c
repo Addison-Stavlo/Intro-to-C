@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 
 int string_length(char *s)
 {
@@ -66,6 +67,28 @@ char *find_char(char *str, int c)
 */
 char *find_string(char *haystack, char *needle)
 {
+    int needle_length = string_length(needle);
+    int haystack_length = string_length(haystack);
+
+    for (int i = 0; i <= haystack_length - needle_length; i++)
+    {
+        if (haystack[i] == needle[0])
+        {
+            bool isMatch = true;
+            for (int j = 1; j < needle_length; j++)
+            {
+                if (haystack[i + j] != needle[j])
+                {
+                    isMatch = false;
+                }
+            }
+            if (isMatch)
+            {
+                return haystack + i;
+            }
+        }
+    }
+    return NULL;
 }
 
 #ifndef TESTING
