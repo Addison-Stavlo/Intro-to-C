@@ -36,8 +36,6 @@ char *string_dup(char *src)
 */
 void mem_copy(void *dest, const void *src, int n)
 {
-    int src_len = string_length(src);
-
     char *destChar;
     destChar = dest;
     // destChar = malloc(n * sizeof(char));
@@ -64,6 +62,23 @@ void mem_copy(void *dest, const void *src, int n)
 */
 void *resize_memory(void *ptr, int old_size, int new_size)
 {
+    char *ptrChar;
+    ptrChar = ptr;
+
+    char *new = malloc(new_size * sizeof(char));
+
+    for (int i = 0; i < old_size; i++)
+    {
+        if (i == new_size)
+        {
+            break;
+        }
+        *(new + i) = *(ptrChar + i);
+    }
+    void *newVoid;
+    newVoid = new;
+
+    return newVoid;
 }
 
 #ifndef TESTING
