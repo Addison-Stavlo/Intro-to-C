@@ -36,10 +36,16 @@ void enqueue(Queue *q, int item)
     {
         q = resize_memory(q, q->capacity, q->capacity + 1);
     }
+    printf("-- adding item: %d\n", item);
 
     q->storage[q->length] = item;
     q->length += 1;
     q->capacity += 1;
+
+    for (int i = 0; i < q->length; i++)
+    {
+        printf("      %d - %d \n", i, q->storage[i]);
+    }
 }
 
 /*
@@ -52,13 +58,15 @@ int dequeue(Queue *q)
     {
         return -1;
     }
-    int *q_copy = q;
 
-    q += 1;
+    int q_return = q->storage[0];
+
+    q->storage += 1;
     q->length -= 1;
     q->capacity -= 1;
-    printf("%d\n", *q_copy);
-    return *q_copy;
+
+    printf("-- removing item: %d\n", q_return);
+    return q_return;
 }
 
 /*
@@ -67,6 +75,11 @@ int dequeue(Queue *q)
 */
 void destroyQueue(Queue *q)
 {
+    // if (q->storage[0] != '\0')
+    // {
+    //     free(q->storage);
+    // }
+    free(q);
 }
 
 #ifndef TESTING
