@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "lib.h"
+#include "malloc.h"
 
 typedef struct Queue
 {
@@ -31,6 +32,14 @@ Queue *createQueue(unsigned capacity)
 */
 void enqueue(Queue *q, int item)
 {
+    if (q->length >= q->storage)
+    {
+        q = resize_memory(q, q->capacity, q->capacity + 1);
+    }
+
+    q->storage[q->length] = item;
+    q->length += 1;
+    q->capacity += 1;
 }
 
 /*
@@ -39,6 +48,17 @@ void enqueue(Queue *q, int item)
 */
 int dequeue(Queue *q)
 {
+    if (q->length == 0)
+    {
+        return -1;
+    }
+    int *q_copy = q;
+
+    q += 1;
+    q->length -= 1;
+    q->capacity -= 1;
+    printf("%d\n", *q_copy);
+    return *q_copy;
 }
 
 /*
