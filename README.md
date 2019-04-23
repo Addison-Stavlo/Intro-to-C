@@ -45,7 +45,7 @@ This lab is structured very much like how your introductory JavaScript labs are 
 
 **Stretch Goal Problems**
 
-- [ ] queue
+- [x] queue
 - [ ] quicksort
 - [ ] hangman
 
