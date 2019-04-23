@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "lib.h"
 #include "malloc.h"
+
 /* 
     Define the Person struct by specifying the fields that make up the
     Person type. Don't forget to specify the type of each field. A 
