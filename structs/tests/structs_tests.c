@@ -30,7 +30,7 @@ char *all_tests()
     mu_suite_start();
 
     mu_run_test(test_person_create);
-    // mu_run_test(test_person_destroy);
+    mu_run_test(test_person_destroy);
 
     return NULL;
 }
