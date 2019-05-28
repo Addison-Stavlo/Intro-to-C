@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "lib.h"
+#include "malloc.h"
 
-typedef struct Queue {
+typedef struct Queue
+{
     unsigned int length;
     unsigned int capacity;
     int *storage;
@@ -15,7 +17,12 @@ typedef struct Queue {
 */
 Queue *createQueue(unsigned capacity)
 {
+    Queue *queue = malloc(sizeof(Queue));
+    queue->storage = malloc(capacity * sizeof(int));
+    queue->length = 0;
+    queue->capacity = capacity;
 
+    return queue;
 }
 
 /*
@@ -25,7 +32,20 @@ Queue *createQueue(unsigned capacity)
 */
 void enqueue(Queue *q, int item)
 {
+    if (q->length >= q->storage)
+    {
+        q = resize_memory(q, q->capacity, q->capacity + 1);
+    }
+    printf("-- adding item: %d\n", item);
 
+    q->storage[q->length] = item;
+    q->length += 1;
+    q->capacity += 1;
+
+    for (int i = 0; i < q->length; i++)
+    {
+        printf("      %d - %d \n", i, q->storage[i]);
+    }
 }
 
 /*
@@ -34,7 +54,19 @@ void enqueue(Queue *q, int item)
 */
 int dequeue(Queue *q)
 {
+    if (q->length == 0)
+    {
+        return -1;
+    }
 
+    int q_return = q->storage[0];
+
+    q->storage += 1;
+    q->length -= 1;
+    q->capacity -= 1;
+
+    printf("-- removing item: %d\n", q_return);
+    return q_return;
 }
 
 /*
@@ -43,9 +75,12 @@ int dequeue(Queue *q)
 */
 void destroyQueue(Queue *q)
 {
-
+    // if (q->storage[0] != '\0')
+    // {
+    //     free(q->storage);
+    // }
+    free(q);
 }
-
 
 #ifndef TESTING
 int main(void)
